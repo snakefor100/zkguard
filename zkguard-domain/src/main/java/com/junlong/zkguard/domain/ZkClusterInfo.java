@@ -9,7 +9,7 @@ import java.util.List;
 public class ZkClusterInfo {
     private String clusterId;
     private String clusterName;
-    private List<String> nodeList;
+    private String nodeList;
     private String description;
 
     public String getClusterId() {
@@ -28,11 +28,11 @@ public class ZkClusterInfo {
         this.clusterName = clusterName;
     }
 
-    public List<String> getNodeList() {
+    public String getNodeList() {
         return nodeList;
     }
 
-    public void setNodeList(List<String> nodeList) {
+    public void setNodeList(String nodeList) {
         this.nodeList = nodeList;
     }
 
@@ -42,5 +42,15 @@ public class ZkClusterInfo {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    @Override
+    public String toString() {
+        return "ZkClusterInfo{" +
+                "clusterId='" + clusterId + '\'' +
+                ", clusterName='" + clusterName + '\'' +
+                ", nodeList=" + nodeList +
+                ", description='" + description + '\'' +
+                '}';
     }
 }

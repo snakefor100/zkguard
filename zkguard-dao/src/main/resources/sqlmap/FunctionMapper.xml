@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="FunctionMapper">
+    <insert id="saveFunctionBatch" parameterType="java.util.List">
+      INSERT INTO FUNCTION(functionId,functionName,descript,actionUrl,sort,parentId,state,functionType) VALUES
+      <foreach collection="list" item="function" separator="," index="index">
+          (
+          #{function.functionId,jdbcType=VARCHAR},#{function.functionName,jdbcType=VARCHAR},#{function.descript,jdbcType=VARCHAR},
+          #{function.actionUrl,jdbcType=VARCHAR},#{function.sort,jdbcType=INTEGER},#{function.parentId,jdbcType=VARCHAR},#{function.state,jdbcType=INTEGER},#{function.functionType,jdbcType=INTEGER}
+          )
+      </foreach>
+    </insert>
+    <select id="getFunctionByType" parameterType="com.junlong.zkguard.domain.QueryRequest" resultType="Function">
+        SELECT functionId,functionName,parentId,actionUrl FROM FUNCTION WHERE functionType = #{fields.functionType,jdbcType=INTEGER}
+        <include refid="CommonMapper.sortSql"></include>
+    </select>
+</mapper>

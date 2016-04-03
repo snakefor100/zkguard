@@ -11,5 +11,11 @@
 
     <artifactId>zkguard-domain</artifactId>
 
-
+<dependencies>
+    <dependency>
+        <groupId>com.junlong.tools</groupId>
+        <artifactId>tool-common</artifactId>
+        <version>1.0-SNAPSHOT</version>
+    </dependency>
+</dependencies>
 </project>
