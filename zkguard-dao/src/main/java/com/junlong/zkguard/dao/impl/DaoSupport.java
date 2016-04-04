@@ -12,28 +12,33 @@ import java.util.List;
  */
 @Repository("daoSupport")
 public class DaoSupport<E> implements Dao<E> {
-    @Resource(name="sqlSessionTemplate")
+    @Resource(name = "sqlSessionTemplate")
     private SqlSessionTemplate sqlSessionTemplate;
 
     @Override
     public Object save(String str, Object obj) {
-        return sqlSessionTemplate.insert(str,obj);
+        return sqlSessionTemplate.insert(str, obj);
+    }
+
+    @Override
+    public Object saveOrUpdate(String str, Object obj) {
+        return sqlSessionTemplate.insert(str, obj);
     }
 
     @Override
     public Object savebatch(String str, List<E> ks) {
-        return sqlSessionTemplate.insert(str,ks);
+        return sqlSessionTemplate.insert(str, ks);
     }
 
 
     @Override
     public Object update(String str, Object obj) {
-        return sqlSessionTemplate.update(str,obj);
+        return sqlSessionTemplate.update(str, obj);
     }
 
     @Override
     public Object delete(String str, Object obj) {
-        return sqlSessionTemplate.delete(str,obj);
+        return sqlSessionTemplate.delete(str, obj);
     }
 
     @Override

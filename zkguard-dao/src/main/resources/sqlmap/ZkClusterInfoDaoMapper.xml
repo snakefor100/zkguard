@@ -3,11 +3,19 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="ZkClusterInfoMapper">
     <insert id="saveClusterInfo" parameterType="ZkClusterInfo">
-      INSERT INTO CLUSTERINFO(clusterId,clusterName,description) VALUES (#{clusterId},#{clusterName},#{description})
+      INSERT INTO CLUSTERINFO(clusterId,clusterName,nodeList,description) VALUES (#{clusterId},#{clusterName},#{nodeList},#{description})
     </insert>
-    <select id="getClusterInfoByParam" parameterType="com.junlong.common.domain.PageRequestBean" resultType="ZkClusterInfo">
-      SELECT clusterId,clusterName,nodeList,description FROM CLUSTERINFO
-      <include refid="CommonMapper.pageLimit"></include>
+
+    <!--replace into `test_tab` (`name`,`age`) values ('zhangsan',30) ;-->
+    <insert id="saveOrUpdateClusterInfo" parameterType="ZkClusterInfo">
+        INSERT INTO CLUSTERINFO(clusterId,clusterName,nodeList,description) VALUES (#{clusterId},#{clusterName},#{nodeList},#{description}) ON DUPLICATE KEY UPDATE clusterName=#{clusterName},nodeList=#{nodeList},description=#{description}
+    </insert>
+
+
+    <select id="getClusterInfoByParam" parameterType="com.junlong.common.domain.PageRequestBean"
+            resultType="ZkClusterInfo">
+        SELECT clusterId,clusterName,nodeList,description FROM CLUSTERINFO
+        <include refid="CommonMapper.pageLimit"></include>
     </select>
     <select id="getClusterInfoCount" resultType="long">
         SELECT COUNT(*) FROM CLUSTERINFO WHERE 1=1

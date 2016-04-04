@@ -21,25 +21,23 @@
             }, {
                 field: "clusterName",
                 title: "集群名称",
-                align: "center"
+                align: "center",
+                width: 100
             }, {
                 field: "nodeList",
                 title: "集群机器列表",
-                align: "center"
+                align: "center",
+                width: 600
             }, {
                 field: "description",
                 title: "描述",
-                align: "center"
+                align: "center",
+                width: 350
             }]];
-            var toolbar = [{
-                id: "bt-add",
-                text: "增加",
-                iconCls: "icon-add",
-                handler: addZkCluster
-            }];
+
             $("#grid").datagrid({
-                fitColumns: true,
-                autoRowHeight: true,
+                fitColumns: false,
+                autoRowHeight: false,
                 fit: true,
                 iconCls: 'icon-forward',
                 border: false,
@@ -48,17 +46,60 @@
                 striped: true,
                 pageList: [10, 30, 50],
                 columns: columns,
-                toolbar: toolbar,
+                toolbar: "#zk-toolbar",
                 url: "getZkClusterByParam",
                 pagination: true,
                 loadMsg: "正在读取，请稍后.."
             });
+            // 添加ZK集群
+            $('#addZkClusterWindow').window({
+                title: '添加ZkCluster信息',
+                draggable: true,
+                modal: true,
+                shadow: true,
+                closed: true,
+                closable: true,
+                resizable: true,
+                minimizable: true,
+                collapsible: true,
+                maximizable: true,
+                onBeforeClose: function () {
 
+                }
+
+            });
         })
         function addZkCluster() {
-            alert("添加zk");
+            $('#addZkClusterWindow').window("open");
         }
+        //添加zk集群信息
+        function saveZkInfo() {
+            if($('#addZkCluster').form('validate')) {
+                var params = $('#addZkCluster').serialize();
+                $.post("saveZkCluster",params,function (data) {
 
+                    if(data.success){
+                        $.messager.show({
+                            title:'消息',
+                            msg:'添加ZK集群信息成功!.',
+                            timeout:2000,
+                            showType:'fade'
+                        });
+
+                        $('#addZkClusterWindow').window("close");
+                        $('#addZkClusterWindow').form('clear');
+                        // 刷新表格数据
+                        $('#grid').datagrid('reload');
+                    }else{
+                        $.messager.alert('添加ZK集群信息失败',data.msg,'error');
+                    }
+                })
+            }
+        }
+        //删除
+        function delZkCluster() {
+
+        }
     </script>
 
 
@@ -69,37 +110,50 @@
 </div>
 
 <!--新增-->
-<div class="easyui-window" title="添加ZK信息" id="addZkClusterWindow" collapsible="false" minimizable="false"
-     maximizable="false" style="top:100px;left:200px">
+<div class="easyui-window" title="添加ZK信息" id="addZkClusterWindow" style="top:100px;left:200px;height:60%;width: 40%">
     <div region="north" style="height: 30px;overflow:hidden" split="false" border="false">
         <div class="datagrid-toolbar">
-            <a id="save" icon="icon-save" href="#" class="easyui-linkbutton" plain="true">保存</a>
+            <a id="save" icon="icon-save" href="#" class="easyui-linkbutton" plain="true" onclick="saveZkInfo()">保存</a>
         </div>
     </div>
 
     <div region="center" style="overflow:auto;padding:5px;" border="false">
-        <form id="zkinfoForm">
+        <form id="addZkCluster" method="post">
             <table class="table-edit" width="100%" align="center">
-                <tr class="title">
-                    <td colspan="2">添加ZK集群信息</td>
-                </tr>
-                <tr>
-                    <td>ZK集群名称</td>
-                    <td>
-                        <input type="hidden" name="clusterId" id="clusterId" />
-                        <input type="text" class="easyui-validatebox" required="true" name="clusterName" id="clusterName"/>
-                    </td>
-                </tr>
-                <tr>
-                    <td>ZK地址列表(机器之间用逗号","分割)</td>
-                    <td>
 
-                    </td>
+                <tr>
+                    <td>集群名称:</td>
+                    <td><input type="text" class="easyui-validatebox" required="true" name="clusterName"
+                               id="clusterName"/></td>
+                </tr>
+                <tr>
+                    <td>集群机器地址:</td>
+                    <br>
+                    <td><input type="text" class="easyui-validatebox" style="height:60px" name="nodeList" id="nodeList"
+                               data-options="multiline:true,required:true"/></td>
+                </tr>
+                <tr>
+                    <td>描述:</td>
+                    <br>
+                    <td><input type="text" class="easyui-validatebox" style="height:60px" name="description"
+                               id="description" data-options="multiline:true"/></td>
                 </tr>
             </table>
         </form>
     </div>
 </div>
+<div id="zk-toolbar">
+
+    <a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true" id="bt-add" onclick="addZkCluster()">添加</a>
+    <a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-cancel',plain:true" id="bt-del" onclick="delZkCluster()">删除</a>
+
+
+    <input/><a href="#" class="easyui-linkbutton" iconCls="icon-search" plain="true"></a>
+
+    </tr>
+    </table>
+</div>
+
 </body>
 
 </html>

@@ -7,6 +7,7 @@ import java.util.List;
  */
 public interface Dao<E> {
     Object save(String str,Object obj);
+    Object saveOrUpdate(String str,Object obj);
     Object savebatch(String str,List<E> list);
     Object update(String str,Object obj);
     Object delete(String str,Object obj);

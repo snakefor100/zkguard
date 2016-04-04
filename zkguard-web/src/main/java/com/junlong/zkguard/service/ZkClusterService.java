@@ -11,5 +11,6 @@ import java.util.List;
  */
 public interface ZkClusterService {
     void saveZkClusterInfo(ZkClusterInfo zkClusterInfo);
+    void saveOrUpdateZkClusterInfo(ZkClusterInfo zkClusterInfo);
     PageResponseBean<ZkClusterInfo> getZkClusterInfoByParam(PageRequestBean requestBean);
 }

@@ -4,7 +4,7 @@
 <mapper namespace="CommonMapper">
     <sql id="pageLimit">
         <if test="start != null">
-            limit ${start},${page}
+            limit ${start},${rows}
         </if>
     </sql>
     

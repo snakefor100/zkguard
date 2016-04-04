@@ -26,6 +26,11 @@ public class ZkClusterServiceImpl implements ZkClusterService{
     }
 
     @Override
+    public void saveOrUpdateZkClusterInfo(ZkClusterInfo zkClusterInfo) {
+        dao.save("ZkClusterInfoMapper.saveOrUpdateClusterInfo",zkClusterInfo);
+    }
+
+    @Override
     public PageResponseBean<ZkClusterInfo> getZkClusterInfoByParam(PageRequestBean requestBean) {
         PageResponseBean responseBean = new PageResponseBean();
         responseBean.setTotal(dao.getCount("ZkClusterInfoMapper.getClusterInfoCount"));
