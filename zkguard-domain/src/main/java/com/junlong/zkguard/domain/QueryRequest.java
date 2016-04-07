@@ -5,6 +5,7 @@ import java.util.Map;
 /**
  * Created by niuniu on 2016/3/29.
  */
+@Deprecated
 public class QueryRequest {
     private int start;
     private int limit = 20;

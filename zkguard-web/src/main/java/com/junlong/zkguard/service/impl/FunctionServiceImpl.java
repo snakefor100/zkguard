@@ -1,6 +1,6 @@
 package com.junlong.zkguard.service.impl;
 
-import com.junlong.zkguard.constants.Constants;
+import com.junlong.zkguard.constants.ZkConstants;
 import com.junlong.zkguard.dao.Dao;
 import com.junlong.zkguard.domain.Function;
 import com.junlong.zkguard.domain.QueryRequest;
@@ -33,7 +33,7 @@ public class FunctionServiceImpl implements FunctionService {
         param.put("functionType",type);
         queryRequest.setFields(param);
         Map<String,String> sortMap = new HashMap<String,String>();
-        sortMap.put("sort", Constants.SORT_ASC);
+        sortMap.put("sort", ZkConstants.SORT_ASC);
         queryRequest.setSortItemMap(sortMap);
         System.out.println(queryRequest);
         return dao.findForList("FunctionMapper.getFunctionByType",queryRequest);

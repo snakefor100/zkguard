@@ -3,6 +3,7 @@ package com.junlong.zkguard.domain;
 /**
  * Created by niuniu on 2016/3/29.
  */
+@Deprecated
 public class Function{
     /**
      * 功能ID

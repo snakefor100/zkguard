@@ -3,6 +3,7 @@ package com.junlong.zkguard.domain;
 /**
  * Created by niuniu on 2016/3/26.
  */
+@Deprecated
 public class User {
     private String userId;
     private String userName;
