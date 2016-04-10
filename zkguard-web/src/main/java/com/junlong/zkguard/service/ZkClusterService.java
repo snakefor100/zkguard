@@ -4,8 +4,6 @@ import com.junlong.common.domain.PageRequestBean;
 import com.junlong.common.domain.PageResponseBean;
 import com.junlong.zkguard.domain.ZkClusterInfo;
 
-import java.util.List;
-
 /**
  * Created by niuniu on 2016/3/28.
  */

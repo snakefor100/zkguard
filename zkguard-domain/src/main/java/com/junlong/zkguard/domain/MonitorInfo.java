@@ -1,7 +1,6 @@
 package com.junlong.zkguard.domain;
 
 import com.junlong.common.domain.Constants;
-import org.apache.log4j.Logger;
 
 import java.util.Arrays;
 import java.util.List;

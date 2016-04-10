@@ -1,7 +1,5 @@
 package com.junlong.zkguard.controller;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.junlong.common.domain.PageRequestBean;
 import com.junlong.common.domain.PageResponseBean;
 import com.junlong.common.domain.exception.BusinessException;
@@ -11,13 +9,10 @@ import com.junlong.zkguard.domain.ZkClusterInfo;
 import com.junlong.zkguard.service.ValidateService;
 import com.junlong.zkguard.service.ZkClusterService;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by niuniu on 2016/3/23.
@@ -54,7 +49,7 @@ public class ZKClusterInfoController {
             zkClusterService.saveZkClusterInfo(zkClusterInfo);
             return responseBean;
         }catch (BusinessException e){
-            return new PageResponseBean<ZkClusterInfo>(ResponseCode.PARAM);
+            return new PageResponseBean<ZkClusterInfo>(e.getResponseCode());
         }
     }
 
@@ -68,7 +63,7 @@ public class ZKClusterInfoController {
             zkClusterService.saveOrUpdateZkClusterInfo(zkClusterInfo);
             return responseBean;
         }catch (BusinessException e){
-            return new PageResponseBean<ZkClusterInfo>(ResponseCode.PARAM);
+            return new PageResponseBean<ZkClusterInfo>(e.getResponseCode());
         }
     }
 }

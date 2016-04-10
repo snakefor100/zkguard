@@ -8,7 +8,6 @@ import org.apache.curator.framework.CuratorFramework;
 import org.apache.curator.framework.CuratorFrameworkFactory;
 import org.apache.curator.framework.recipes.cache.NodeCache;
 import org.apache.curator.framework.recipes.cache.NodeCacheListener;
-import org.apache.curator.retry.ExponentialBackoffRetry;
 import org.apache.curator.retry.RetryNTimes;
 import org.apache.log4j.Logger;
 import org.apache.zookeeper.data.Stat;
@@ -16,6 +15,7 @@ import org.apache.zookeeper.data.Stat;
 import java.util.Map;
 
 /**
+ * 节点自检任务  包括数据保存-数据Watcher查看-数据读取操作
  * Created by niuniu on 2016/4/6.
  */
 public class CheckSelfWorker implements Runnable {

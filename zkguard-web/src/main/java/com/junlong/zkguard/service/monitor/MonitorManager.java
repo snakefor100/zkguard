@@ -2,20 +2,19 @@ package com.junlong.zkguard.service.monitor;
 
 import com.junlong.common.domain.exception.BusinessException;
 import com.junlong.common.domain.exception.ResponseCode;
-import com.junlong.zkguard.constants.ZkConstants;
 import com.junlong.zkguard.constants.MonitorConstant;
-import com.junlong.zkguard.domain.MonitorInfo;
-import com.junlong.zkguard.domain.ZkClusterInfo;
-import com.junlong.zkguard.domain.ZkClusterState;
+import com.junlong.zkguard.constants.ZkConstants;
+import com.junlong.zkguard.domain.*;
 import org.apache.curator.framework.CuratorFramework;
 import org.apache.curator.framework.CuratorFrameworkFactory;
-import org.apache.curator.retry.ExponentialBackoffRetry;
 import org.apache.curator.retry.RetryNTimes;
 import org.apache.log4j.Logger;
 import org.apache.zookeeper.CreateMode;
 import org.apache.zookeeper.ZooDefs;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.*;
 
@@ -43,8 +42,24 @@ public class MonitorManager {
     /**
      * 远程连接检查，获取zk集群，以及服务器相关信息
      */
-    private static void executeSSHCheckWork() {
-
+    private static void executeSSHCheckWork(String clusterId) {
+        logger.info(MonitorConstant.LOG_MONITOR_MANAGER + "开启检测节点状态:" + clusterId);
+        MonitorInfo monitorInfo = monitorInfoMap.get(clusterId);
+        if (monitorInfo == null) {
+            logger.error(MonitorConstant.LOG_MONITOR_MANAGER + "集群没有找到:" + clusterId);
+            return;
+        }
+        ZkClusterState zkClusterState = resultMap.get(clusterId);
+        if (zkClusterState == null) {
+            zkClusterState = new ZkClusterState();
+        }
+        List<ZkNodeBaseInfo> zkNodeBaseInfo = new ArrayList<ZkNodeBaseInfo>();
+        List<ZkNodeState> zkNodeState = new ArrayList<ZkNodeState>();
+        zkClusterState.setZkNodeBaseInfo(zkNodeBaseInfo);
+        zkClusterState.setZkNodeState(zkNodeState);
+        resultMap.put(clusterId,zkClusterState);
+        ScheduledExecutorService scheduledExecutorService = monitorInfo.getScheduledExecutorService();
+        scheduledExecutorService.scheduleWithFixedDelay(new CheckNodeInfoScheduledWorker(monitorInfo, zkClusterState), 0, ZkConstants.CHECK_INTERVAL, TimeUnit.SECONDS);
     }
 
     /**
@@ -54,7 +69,7 @@ public class MonitorManager {
         logger.info(MonitorConstant.LOG_MONITOR_MANAGER + "开启自检:" + clusterId);
         MonitorInfo monitorInfo = monitorInfoMap.get(clusterId);
         if (monitorInfo == null) {
-            logger.error(MonitorConstant.LOG_MONITOR_MANAGER + "自检集群没有找到:" + clusterId);
+            logger.error(MonitorConstant.LOG_MONITOR_MANAGER + "集群没有找到:" + clusterId);
             return;
         }
 
@@ -92,7 +107,7 @@ public class MonitorManager {
             }
         } catch (Exception e) {
             logger.error(MonitorConstant.LOG_MONITOR_MANAGER + "初始化ZK数据发生异常.", e);
-            throw new BusinessException(ResponseCode.INIT);
+            throw new BusinessException(ResponseCode.INIT,e);
         } finally {
             if (client == null) {
                 client.close();
@@ -101,17 +116,18 @@ public class MonitorManager {
     }
 
     public static void main(String[] args) throws InterruptedException {
-        ZkClusterInfo zkClusterInfo = new ZkClusterInfo();
-        zkClusterInfo.setClusterId("a");
-        zkClusterInfo.setNodeList("192.168.1.170:2181,192.168.1.171:2181,192.168.1.172:2181");
-        zkClusterInfo.setClusterName("test");
-        MonitorManager.addCheckWorkNode(zkClusterInfo);
-        MonitorManager.executeSelfCheckWork("a");
-        ZkClusterState zkClusterState = resultMap.get("a");
-        Map<String, String> checkSelfState = zkClusterState.getCheckSelfState();
-        while (true) {
-            Thread.sleep(1000);
-            System.out.println(checkSelfState);
-        }
+//        ZkClusterInfo zkClusterInfo = new ZkClusterInfo();
+//        zkClusterInfo.setClusterId("a");
+//        zkClusterInfo.setNodeList("192.168.1.170:2181,192.168.1.171:2181,192.168.1.172:2181");
+//        zkClusterInfo.setClusterName("test");
+//        MonitorManager.addCheckWorkNode(zkClusterInfo);
+//        MonitorManager.executeSelfCheckWork("a");
+//        ZkClusterState zkClusterState = resultMap.get("a");
+//        Map<String, String> checkSelfState = zkClusterState.getCheckSelfState();
+//        while (true) {
+//            Thread.sleep(1000);
+//            System.out.println(checkSelfState);
+//        }
+
     }
 }

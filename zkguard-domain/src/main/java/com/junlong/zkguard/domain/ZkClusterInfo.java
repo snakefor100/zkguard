@@ -1,7 +1,5 @@
 package com.junlong.zkguard.domain;
 
-import java.util.List;
-
 /**
  * zk集群信息
  * Created by niuniu on 2016/3/22.

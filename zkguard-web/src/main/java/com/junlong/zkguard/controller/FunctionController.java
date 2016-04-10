@@ -4,7 +4,6 @@ import com.junlong.common.generator.IdGenerator;
 import com.junlong.zkguard.constants.MenuEnum;
 import com.junlong.zkguard.domain.Function;
 import com.junlong.zkguard.service.FunctionService;
-
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;

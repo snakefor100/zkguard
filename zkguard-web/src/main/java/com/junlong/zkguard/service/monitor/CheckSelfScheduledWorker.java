@@ -11,6 +11,7 @@ import java.util.Map;
 import java.util.concurrent.ExecutorService;
 
 /**
+ * 自检-定时任务
  * Created by niuniu on 2016/4/7.
  */
 public class CheckSelfScheduledWorker implements Runnable {
