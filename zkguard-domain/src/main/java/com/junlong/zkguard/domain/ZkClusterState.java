@@ -1,6 +1,5 @@
 package com.junlong.zkguard.domain;
 
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -10,18 +9,20 @@ import java.util.Map;
 public class ZkClusterState {
     private String clusterId;
     private String clusterName;
-    private List<ZkNodeBaseInfo> zkNodeBaseInfo;
-    private List<ZkNodeState> zkNodeState;
+    private Map<String,ZkNodeBaseInfo> zkNodeBaseInfoMap;
+    private Map<String,ZkNodeState> zkNodeStateMap;
     private long startCheckSelf;
-    private Map<String,String> checkSelfState;
+    private Map<String, String> checkSelfStateMap;
+    private String state;
 
-    public Map<String, String> getCheckSelfState() {
-        return checkSelfState;
+    public String getState() {
+        return state;
     }
 
-    public void setCheckSelfState(Map<String, String> checkSelfState) {
-        this.checkSelfState = checkSelfState;
+    public void setState(String state) {
+        this.state = state;
     }
+
 
     public long getStartCheckSelf() {
         return startCheckSelf;
@@ -47,19 +48,27 @@ public class ZkClusterState {
         this.clusterName = clusterName;
     }
 
-    public List<ZkNodeBaseInfo> getZkNodeBaseInfo() {
-        return zkNodeBaseInfo;
+    public Map<String, ZkNodeBaseInfo> getZkNodeBaseInfoMap() {
+        return zkNodeBaseInfoMap;
     }
 
-    public void setZkNodeBaseInfo(List<ZkNodeBaseInfo> zkNodeBaseInfo) {
-        this.zkNodeBaseInfo = zkNodeBaseInfo;
+    public void setZkNodeBaseInfoMap(Map<String, ZkNodeBaseInfo> zkNodeBaseInfoMap) {
+        this.zkNodeBaseInfoMap = zkNodeBaseInfoMap;
     }
 
-    public List<ZkNodeState> getZkNodeState() {
-        return zkNodeState;
+    public Map<String, ZkNodeState> getZkNodeStateMap() {
+        return zkNodeStateMap;
     }
 
-    public void setZkNodeState(List<ZkNodeState> zkNodeState) {
-        this.zkNodeState = zkNodeState;
+    public void setZkNodeStateMap(Map<String, ZkNodeState> zkNodeStateMap) {
+        this.zkNodeStateMap = zkNodeStateMap;
+    }
+
+    public Map<String, String> getCheckSelfStateMap() {
+        return checkSelfStateMap;
+    }
+
+    public void setCheckSelfStateMap(Map<String, String> checkSelfStateMap) {
+        this.checkSelfStateMap = checkSelfStateMap;
     }
 }

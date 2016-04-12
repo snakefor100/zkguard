@@ -1,18 +1,66 @@
 package com.junlong.zkguard.domain;
 
+import java.util.List;
+
 /**
  * Zookeeper集群节点状态
  * Created by niuniu on 2016/4/6.
  */
 public class ZkNodeState {
     private String nodeIP;
+    private int zkPort;
     private String Role;
     private int connectionNum;
-    private int watchNum;
-    private int watchedPath;
+    private List<NodeConnector> connectorList;
+    private List<SessionWatcher> sessionWatcherList;
+    private int totalWatchNum;
+    private int connectionWatchedPath;
+    private int connectionWatcher;
     private long sentSize;
     private long receivedSize;
+    private String zxId;
+    private int nodeCount;
 
+
+    public List<SessionWatcher> getSessionWatcherList() {
+        return sessionWatcherList;
+    }
+
+    public void setSessionWatcherList(List<SessionWatcher> sessionWatcherList) {
+        this.sessionWatcherList = sessionWatcherList;
+    }
+
+    public String getZxId() {
+        return zxId;
+    }
+
+    public void setZxId(String zxId) {
+        this.zxId = zxId;
+    }
+
+    public int getNodeCount() {
+        return nodeCount;
+    }
+
+    public void setNodeCount(int nodeCount) {
+        this.nodeCount = nodeCount;
+    }
+
+    public int getConnectionNum() {
+        return connectionNum;
+    }
+
+    public void setConnectionNum(int connectionNum) {
+        this.connectionNum = connectionNum;
+    }
+
+    public int getZkPort() {
+        return zkPort;
+    }
+
+    public void setZkPort(int zkPort) {
+        this.zkPort = zkPort;
+    }
 
     public String getNodeIP() {
         return nodeIP;
@@ -30,28 +78,37 @@ public class ZkNodeState {
         Role = role;
     }
 
-    public int getConnectionNum() {
-        return connectionNum;
+    public List<NodeConnector> getConnectorList() {
+        return connectorList;
     }
 
-    public void setConnectionNum(int connectionNum) {
-        this.connectionNum = connectionNum;
+    public void setConnectorList(List<NodeConnector> connectorList) {
+        this.connectorList = connectorList;
     }
 
-    public int getWatchNum() {
-        return watchNum;
+
+    public int getTotalWatchNum() {
+        return totalWatchNum;
     }
 
-    public void setWatchNum(int watchNum) {
-        this.watchNum = watchNum;
+    public void setTotalWatchNum(int totalWatchNum) {
+        this.totalWatchNum = totalWatchNum;
     }
 
-    public int getWatchedPath() {
-        return watchedPath;
+    public int getConnectionWatchedPath() {
+        return connectionWatchedPath;
     }
 
-    public void setWatchedPath(int watchedPath) {
-        this.watchedPath = watchedPath;
+    public void setConnectionWatchedPath(int connectionWatchedPath) {
+        this.connectionWatchedPath = connectionWatchedPath;
+    }
+
+    public int getConnectionWatcher() {
+        return connectionWatcher;
+    }
+
+    public void setConnectionWatcher(int connectionWatcher) {
+        this.connectionWatcher = connectionWatcher;
     }
 
     public long getSentSize() {
@@ -70,4 +127,22 @@ public class ZkNodeState {
         this.receivedSize = receivedSize;
     }
 
+    @Override
+    public String toString() {
+        return "ZkNodeState{" +
+                "nodeIP='" + nodeIP + '\'' +
+                ", zkPort=" + zkPort +
+                ", Role='" + Role + '\'' +
+                ", connectionNum=" + connectionNum +
+                ", connectorList=" + connectorList +
+                ", sessionWatcherList=" + sessionWatcherList +
+                ", totalWatchNum=" + totalWatchNum +
+                ", connectionWatchedPath=" + connectionWatchedPath +
+                ", connectionWatcher=" + connectionWatcher +
+                ", sentSize=" + sentSize +
+                ", receivedSize=" + receivedSize +
+                ", zxId='" + zxId + '\'' +
+                ", nodeCount=" + nodeCount +
+                '}';
+    }
 }

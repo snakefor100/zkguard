@@ -9,4 +9,5 @@ public class MonitorConstant {
     public static final String LOG_CHECK_SELF_WORKER="节点自检线程-";
     public static final String LOG_CHECK_SELF_SCHEDULED_WORKER="节点定时自检任务-";
     public static final String LOG_CHECK_NODE_SCHEDULED_WORKER="节点定时SSH检测任务-";
+    public static final String LOG_CHECK_NODE_WORKER="节点SSH命令检测任务-";
 }

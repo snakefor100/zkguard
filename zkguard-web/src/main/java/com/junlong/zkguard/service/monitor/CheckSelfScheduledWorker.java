@@ -30,7 +30,7 @@ public class CheckSelfScheduledWorker implements Runnable {
             logger.info(MonitorConstant.LOG_CHECK_SELF_SCHEDULED_WORKER + "开始定时任务-自检");
             ZkConstants.ZK_PATH_DATA = ZkConstants.ZK_GUARD_PATH + System.currentTimeMillis();
             List<String> serviceList = monitorInfo.getServiceList();
-            Map<String, String> checkSelfState = zkClusterState.getCheckSelfState();
+            Map<String, String> checkSelfState = zkClusterState.getCheckSelfStateMap();
             ExecutorService executorService = monitorInfo.getExecutorService();
             for (String serviceIp : serviceList) {
                 executorService.submit(new CheckSelfWorker(checkSelfState, serviceIp));

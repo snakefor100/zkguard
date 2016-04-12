@@ -10,6 +10,15 @@ public class ZkNodeBaseInfo {
     private float memUsage;
     private float load;
     private String Disk;//挂在点 百分比
+    private String state;
+
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
+    }
 
     public String getNodeIP() {
         return nodeIP;
